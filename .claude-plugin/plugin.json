@@ -1,0 +1,11 @@
+{
+  "name": "cross-agent-skill-bridge",
+  "description": "Share agent skills (SKILL.md directories) between coding agents — Claude Code, Codex, Gemini — via the neutral ~/.agents/skills hub. Selective and non-destructive: shows a presence/divergence matrix and never silently overwrites a diverged copy.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Hayden Bruinsma"
+  },
+  "homepage": "https://github.com/anombyte93/cross-agent-skill-bridge",
+  "repository": "https://github.com/anombyte93/cross-agent-skill-bridge",
+  "license": "MIT"
+}
