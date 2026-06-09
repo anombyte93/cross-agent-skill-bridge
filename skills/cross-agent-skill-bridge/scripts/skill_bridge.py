@@ -19,13 +19,18 @@ from pathlib import Path
 
 HOME = Path.home()
 
-# Known agent skill roots. An agent is "present" only if its root OR parent exists.
-# Override/extend with CROSS_AGENT_SKILL_ROOTS="name=path,name=path".
+# Known agent skill roots, mapped to where each agent ACTUALLY reads skills.
+#   "hub" = ~/.agents/skills — the shared cross-agent location, and the path Codex reads
+#   via NATIVE skill discovery. This is Codex's canonical target.
+#   Claude Code reads ~/.claude/skills; OpenCode reads ~/.config/opencode/skills.
+# Note: ~/.codex/skills is NOT a confirmed Codex discovery path — some setups populate it
+# as a secondary location. Add it (or any agent) via:
+#   CROSS_AGENT_SKILL_ROOTS="codex=~/.codex/skills,name=path"
+# An agent is "present" only if its root OR parent exists.
 DEFAULT_ROOTS: dict[str, Path] = {
-    "hub": HOME / ".agents" / "skills",      # neutral cross-agent location
+    "hub": HOME / ".agents" / "skills",                  # cross-agent hub = Codex native discovery
     "claude": HOME / ".claude" / "skills",
-    "codex": HOME / ".codex" / "skills",
-    "gemini": HOME / ".gemini" / "skills",
+    "opencode": HOME / ".config" / "opencode" / "skills",
 }
 
 

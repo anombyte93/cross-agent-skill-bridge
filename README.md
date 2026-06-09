@@ -2,11 +2,11 @@
 
 Author an agent **skill** once, use it in every coding agent you run.
 
-Claude Code, Codex, and Gemini each read "skills" (a `SKILL.md` directory) from a
-*different* place — `~/.claude/skills`, `~/.codex/skills`, `~/.gemini/skills` — and
-a growing number of agents also natively discover a neutral shared location,
-`~/.agents/skills`. So a skill you write for one agent is invisible to the others
-until you copy it over. Do that by hand and the copies quietly drift apart.
+Different coding agents read "skills" (a `SKILL.md` directory) from different places:
+**Claude Code** reads `~/.claude/skills`, **OpenCode** reads `~/.config/opencode/skills`,
+and **Codex** reads the shared `~/.agents/skills` via native skill discovery. So a skill
+you write for one agent is invisible to the others until you copy it over — and doing that
+by hand lets the copies quietly drift apart.
 
 This is a tiny, dependency-free tool that treats `~/.agents/skills` as a **hub** and
 each agent as a **spoke**, and syncs skills between them — **selectively** (you choose
@@ -70,7 +70,7 @@ hashes (`link:…` = symlink, `-` = absent). A `⚠ DIVERGED` row means the copi
 ### Extending to other agents
 
 ```bash
-export CROSS_AGENT_SKILL_ROOTS="opencode=~/.config/opencode/skills,work=~/work/.agents/skills"
+export CROSS_AGENT_SKILL_ROOTS="codex=~/.codex/skills,work=~/work/.agents/skills"
 ```
 
 ## Scope

@@ -39,7 +39,7 @@ python3 scripts/skill_bridge.py share --from claude --skill repo-sanitize --dry-
 python3 scripts/skill_bridge.py share --from claude --skill repo-sanitize
 
 # Or to specific targets, keeping them live via symlink:
-python3 scripts/skill_bridge.py share --from claude --to codex --to hub --skill repo-sanitize --mode link
+python3 scripts/skill_bridge.py share --from claude --to hub --skill repo-sanitize --mode link
 
 # Share everything in one agent (use after reviewing status):
 python3 scripts/skill_bridge.py share --from claude --all
@@ -62,10 +62,10 @@ python3 scripts/skill_bridge.py share --from claude --all
 
 ## Agent registry
 
-Default roots: `hub=~/.agents/skills`, `claude=~/.claude/skills`, `codex=~/.codex/skills`, `gemini=~/.gemini/skills`. An agent only counts as present if its dir (or parent) exists. Add or override roots without editing code:
+Default roots: `hub=~/.agents/skills` (the cross-agent hub — the path **Codex** reads via native skill discovery), `claude=~/.claude/skills`, `opencode=~/.config/opencode/skills`. **Codex's canonical target is the hub**, not `~/.codex/skills`. An agent only counts as present if its dir (or parent) exists. Add or override roots without editing code — e.g. to also sync a secondary `~/.codex/skills` location some setups use:
 
 ```bash
-export CROSS_AGENT_SKILL_ROOTS="opencode=~/.config/opencode/skills,work=~/work/.agents/skills"
+export CROSS_AGENT_SKILL_ROOTS="codex=~/.codex/skills,work=~/work/.agents/skills"
 ```
 
 ## Notes
