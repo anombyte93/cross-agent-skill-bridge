@@ -120,15 +120,27 @@ def link_tree(src: Path, dst: Path) -> None:
 
 
 def cmd_share(roots: dict[str, Path], args) -> int:
-    agents = present_agents(roots)
-    if args.source not in agents:
-        sys.exit(f"Source agent '{args.source}' not present. Known: {', '.join(agents)}")
-    src_root = agents[args.source]
+    present = present_agents(roots)
+    if args.source not in present:
+        sys.exit(f"Source agent '{args.source}' not present. Known present: {', '.join(present)}")
+    src_root = present[args.source]
 
-    targets = args.to or [a for a in agents if a != args.source]
-    for t in targets:
-        if t not in agents:
-            sys.exit(f"Target agent '{t}' not present. Known: {', '.join(agents)}")
+    # Default targets = every other present agent. Explicit --to may name a
+    # known-but-absent agent (e.g. Codex not installed yet) — we create its dir.
+    # Unknown names are warned and skipped, never aborting the whole run.
+    if args.to:
+        targets: dict[str, Path] = {}
+        for t in args.to:
+            if t == args.source:
+                continue
+            if t in roots:
+                targets[t] = roots[t]
+            else:
+                print(f"skip target '{t}': unknown agent (known: {', '.join(roots)})")
+        if not targets:
+            sys.exit("No valid targets given.")
+    else:
+        targets = {a: p for a, p in present.items() if a != args.source}
 
     if args.all:
         skills = sorted(list_skills(src_root))
@@ -145,8 +157,8 @@ def cmd_share(roots: dict[str, Path], args) -> int:
             skipped += 1
             continue
         src_dig = digest(src)
-        for t in targets:
-            dst = agents[t] / name
+        for t, troot in targets.items():
+            dst = troot / name
             dst_dig = digest(dst)
             if dst_dig == src_dig and dst_dig:
                 print(f"ok    {name} -> {t}: already in sync")
@@ -162,7 +174,7 @@ def cmd_share(roots: dict[str, Path], args) -> int:
                 verb = "would overwrite" if dst_dig else "would create"
                 print(f"DRY   {name} -> {t}: {verb} ({action})")
                 continue
-            agents[t].mkdir(parents=True, exist_ok=True)
+            troot.mkdir(parents=True, exist_ok=True)
             (link_tree if args.mode == "link" else copy_tree)(src, dst)
             print(f"{action}  {name} -> {t}: {'overwrote' if dst_dig else 'created'}")
             changed += 1
