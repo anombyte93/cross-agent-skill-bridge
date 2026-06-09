@@ -1,0 +1,16 @@
+{
+  "name": "cross-agent-skill-bridge",
+  "owner": {
+    "name": "Hayden Bruinsma",
+    "url": "https://github.com/anombyte93"
+  },
+  "plugins": [
+    {
+      "name": "cross-agent-skill-bridge",
+      "source": "./",
+      "description": "Share agent skills between Claude Code / Codex / Gemini via the neutral ~/.agents/skills hub. Selective and non-destructive.",
+      "version": "0.1.0",
+      "license": "MIT"
+    }
+  ]
+}

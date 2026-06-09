@@ -24,20 +24,18 @@ tool.
 
 ## Install
 
-It's a Claude Code plugin, and the same `SKILL.md` works for any agent that discovers
-`~/.agents/skills`.
+**One command (any agent):**
+```bash
+curl -fsSL https://raw.githubusercontent.com/anombyte93/cross-agent-skill-bridge/main/install.sh | bash
+```
+Clones the repo, symlinks the skill into the neutral `~/.agents/skills` hub, and runs a
+smoke test so you can see it working immediately. Idempotent and non-destructive — re-run
+to update; it never deletes your skills. Requires `git` and `python3` (3.9+).
 
-**Claude Code (plugin):**
+**Claude Code (plugin marketplace):**
 ```
 /plugin marketplace add anombyte93/cross-agent-skill-bridge
 /plugin install cross-agent-skill-bridge
-```
-
-**Any agent (manual):** clone and symlink the skill into the neutral hub:
-```bash
-git clone https://github.com/anombyte93/cross-agent-skill-bridge.git
-mkdir -p ~/.agents/skills
-ln -s "$(pwd)/cross-agent-skill-bridge/skills/cross-agent-skill-bridge" ~/.agents/skills/cross-agent-skill-bridge
 ```
 
 ## Use
