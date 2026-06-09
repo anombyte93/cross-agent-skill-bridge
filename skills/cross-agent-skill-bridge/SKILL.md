@@ -71,5 +71,5 @@ export CROSS_AGENT_SKILL_ROOTS="opencode=~/.config/opencode/skills,work=~/work/.
 ## Notes
 
 - This bridges **skills** only. MCP servers and agent definitions live in agent-specific configs and are out of scope for v1 (Claude→Codex MCP re-registration is a separate, config-coupled problem).
-- Codex/Gemini discovering `~/.agents/skills/` is a native/emerging convention, not provided by this tool — see CREDITS.
+- Codex reads `~/.agents/skills/` via native skill discovery; Claude Code uses its plugin marketplace and OpenCode uses `~/.config/opencode/skills/`. This tool doesn't provide that discovery — see CREDITS.
 - No third-party dependencies; stdlib Python 3.9+.

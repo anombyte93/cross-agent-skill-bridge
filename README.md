@@ -80,11 +80,12 @@ scope for v1.
 
 ## Credits
 
-See [CREDITS.md](CREDITS.md). The `~/.agents/skills` cross-agent convention and the
-symlink-install pattern are prior art from the broader agent-skills ecosystem,
-notably [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent (MIT) —
-this tool does not invent the standard, it just makes living on both sides of it
-painless.
+See [CREDITS.md](CREDITS.md). `~/.agents/skills` is the directory Codex reads via native
+skill discovery, and the symlink-install pattern is prior art from the agent-skills
+ecosystem — notably [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent
+(MIT). This tool does not invent that mechanism; it just makes living on both sides of it
+painless. (Path scope is agent-specific — Claude Code uses its plugin marketplace, OpenCode
+uses `~/.config/opencode/skills/`; see CREDITS.)
 
 ## License
 
